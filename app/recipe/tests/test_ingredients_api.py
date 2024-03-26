@@ -88,3 +88,14 @@ class PrivateIngredientTests(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         ingredient.refresh_from_db()
         self.assertEqual(ingredient.name, payload['name'])
+
+    def test_delete_ingredient(self):
+        """Test deleting an ingredient."""
+        ingredient = Ingredient.objects.create(user=self.user, name='Lettuce')
+
+        url = detail_url(ingredient.id)
+        resp = self.client.delete(url)
+
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+        ingredeints = Ingredient.objects.filter(user=self.user)
+        self.assertFalse(ingredeints.exists())
