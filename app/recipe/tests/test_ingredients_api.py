@@ -17,7 +17,11 @@ INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 def create_user(email='user@example.com', password='testpass123'):
     """Create and return user."""
-    return get_user_model().objects.create_user(email=email, password=password, is_active=True)
+    return get_user_model().objects.create_user(
+        email=email,
+        password=password,
+        is_active=True
+    )
 
 
 class PublicIngredientTests(TestCase):
